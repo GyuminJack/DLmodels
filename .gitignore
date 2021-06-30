@@ -55,6 +55,9 @@ coverage.xml
 .pytest_cache/
 pytestdebug.log
 
+data/
+model/
+models/
 # Translations
 *.mo
 *.pot

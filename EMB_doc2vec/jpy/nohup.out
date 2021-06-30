@@ -1,0 +1,207 @@
+[I 09:57:05.148 NotebookApp] The port 8325 is already in use, trying another port.
+[W 09:57:05.152 NotebookApp] Error loading server extension jupyter_nbextensions_configurator
+    Traceback (most recent call last):
+      File "/home/jack/anaconda3/lib/python3.7/site-packages/notebook/notebookapp.py", line 1615, in init_server_extensions
+        mod = importlib.import_module(modulename)
+      File "/home/jack/anaconda3/lib/python3.7/importlib/__init__.py", line 127, in import_module
+        return _bootstrap._gcd_import(name[level:], package, level)
+      File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+      File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+      File "<frozen importlib._bootstrap>", line 965, in _find_and_load_unlocked
+    ModuleNotFoundError: No module named 'jupyter_nbextensions_configurator'
+[I 09:57:05.180 NotebookApp] JupyterLab extension loaded from /home/jack/anaconda3/lib/python3.7/site-packages/jupyterlab
+[I 09:57:05.181 NotebookApp] JupyterLab application directory is /home/jack/anaconda3/share/jupyter/lab
+[I 09:57:05.182 NotebookApp] Serving notebooks from local directory: /home/jack/dlmodels/EMB_doc2vec/jpy
+[I 09:57:05.182 NotebookApp] The Jupyter Notebook is running at:
+[I 09:57:05.182 NotebookApp] http://crpr01:8326/
+[I 09:57:05.182 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[W 09:57:05.186 NotebookApp] No web browser found: could not locate runnable browser.
+[W 09:57:57.560 NotebookApp] Error loading server extension jupyter_nbextensions_configurator
+    Traceback (most recent call last):
+      File "/home/jack/anaconda3/lib/python3.7/site-packages/notebook/notebookapp.py", line 1615, in init_server_extensions
+        mod = importlib.import_module(modulename)
+      File "/home/jack/anaconda3/lib/python3.7/importlib/__init__.py", line 127, in import_module
+        return _bootstrap._gcd_import(name[level:], package, level)
+      File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+      File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+      File "<frozen importlib._bootstrap>", line 965, in _find_and_load_unlocked
+    ModuleNotFoundError: No module named 'jupyter_nbextensions_configurator'
+[I 09:57:57.577 NotebookApp] JupyterLab extension loaded from /home/jack/anaconda3/lib/python3.7/site-packages/jupyterlab
+[I 09:57:57.577 NotebookApp] JupyterLab application directory is /home/jack/anaconda3/share/jupyter/lab
+[I 09:57:57.578 NotebookApp] Serving notebooks from local directory: /home/jack/dlmodels/EMB_doc2vec/jpy
+[I 09:57:57.578 NotebookApp] The Jupyter Notebook is running at:
+[I 09:57:57.578 NotebookApp] http://crpr01:8325/
+[I 09:57:57.578 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[W 09:57:57.580 NotebookApp] No web browser found: could not locate runnable browser.
+[I 09:57:58.227 NotebookApp] 302 GET / (192.168.100.3) 0.57ms
+[I 09:57:58.282 NotebookApp] 302 GET /tree? (192.168.100.3) 0.58ms
+[W 09:58:05.894 NotebookApp] 401 POST /login?next=%2Ftree%3F (192.168.100.3) 1.12ms referer=http://192.168.100.167:8325/login?next=%2Ftree%3F
+[I 09:58:08.644 NotebookApp] 302 POST /login?next=%2Ftree%3F (192.168.100.3) 1.14ms
+[W 09:58:09.210 NotebookApp] 404 GET /nbextensions/nbextensions_configurator/tree_tab/main.js?v=20210628095757 (192.168.100.3) 7.75ms referer=http://192.168.100.167:8325/tree?
+[I 09:58:13.170 NotebookApp] Creating new notebook in 
+[I 09:58:14.240 NotebookApp] Kernel started: 7a4ed048-cd9b-4ee2-99f0-1dd22235849d
+[W 09:58:14.263 NotebookApp] 404 GET /nbextensions/nbextensions_configurator/config_menu/main.js?v=20210628095757 (192.168.100.3) 19.24ms referer=http://192.168.100.167:8325/notebooks/Untitled.ipynb?kernel_name=python3
+[W 09:58:14.295 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20210628095757 (192.168.100.3) 0.97ms referer=http://192.168.100.167:8325/notebooks/Untitled.ipynb?kernel_name=python3
+[IPKernelApp] WARNING | Parent appears to have exited, shutting down.
+[W 10:00:18.395 NotebookApp] Error loading server extension jupyter_nbextensions_configurator
+    Traceback (most recent call last):
+      File "/home/jack/anaconda3/envs/d2v/lib/python3.7/site-packages/notebook/notebookapp.py", line 2027, in init_server_extensions
+        mod = importlib.import_module(modulename)
+      File "/home/jack/anaconda3/envs/d2v/lib/python3.7/importlib/__init__.py", line 127, in import_module
+        return _bootstrap._gcd_import(name[level:], package, level)
+      File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+      File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+      File "<frozen importlib._bootstrap>", line 965, in _find_and_load_unlocked
+    ModuleNotFoundError: No module named 'jupyter_nbextensions_configurator'
+[I 10:00:18.396 NotebookApp] Serving notebooks from local directory: /home/jack/dlmodels/EMB_doc2vec/jpy
+[I 10:00:18.396 NotebookApp] Jupyter Notebook 6.4.0 is running at:
+[I 10:00:18.396 NotebookApp] http://crpr01:8325/
+[I 10:00:18.396 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[W 10:00:18.398 NotebookApp] No web browser found: could not locate runnable browser.
+[W 10:00:22.895 NotebookApp] 404 GET /nbextensions/nbextensions_configurator/config_menu/main.js?v=20210628100018 (192.168.100.3) 8.380000ms referer=http://192.168.100.167:8325/notebooks/Untitled.ipynb?kernel_name=python3
+[I 10:00:22.974 NotebookApp] Kernel started: 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8, name: python3
+[W 10:00:23.019 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20210628100018 (192.168.100.3) 1.550000ms referer=http://192.168.100.167:8325/notebooks/Untitled.ipynb?kernel_name=python3
+[I 10:00:27.331 NotebookApp] Saving file at /Untitled.ipynb
+[I 10:00:29.460 NotebookApp] Starting buffering for 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8:e181053ea38d466a987cbfe9f8b260cc
+[W 10:00:29.999 NotebookApp] 404 GET /nbextensions/nbextensions_configurator/tree_tab/main.js?v=20210628100018 (192.168.100.3) 1.270000ms referer=http://192.168.100.167:8325/tree
+[W 10:00:31.629 NotebookApp] 404 GET /nbextensions/nbextensions_configurator/config_menu/main.js?v=20210628100018 (192.168.100.3) 1.330000ms referer=http://192.168.100.167:8325/notebooks/Untitled.ipynb
+[W 10:00:31.753 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20210628100018 (192.168.100.3) 1.290000ms referer=http://192.168.100.167:8325/notebooks/Untitled.ipynb
+[I 10:02:31.733 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 10:03:40.721 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 10:04:31.956 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 10:06:31.757 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 10:08:31.773 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 10:10:33.944 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 10:12:31.895 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 10:22:33.334 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 10:52:34.555 NotebookApp] Starting buffering for 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8:9563f02f89be4fee8253d6f6fbb9ca24
+[I 11:10:47.754 NotebookApp] 302 GET / (192.168.100.3) 0.430000ms
+[W 11:10:48.233 NotebookApp] 404 GET /nbextensions/nbextensions_configurator/tree_tab/main.js?v=20210628100018 (192.168.100.3) 1.500000ms referer=http://192.168.100.167:8325/tree?
+[W 11:10:49.982 NotebookApp] 404 GET /nbextensions/nbextensions_configurator/config_menu/main.js?v=20210628100018 (192.168.100.3) 2.310000ms referer=http://192.168.100.167:8325/notebooks/d2v_testing_0628.ipynb
+[W 11:10:50.198 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20210628100018 (192.168.100.3) 1.360000ms referer=http://192.168.100.167:8325/notebooks/d2v_testing_0628.ipynb
+[I 11:20:50.198 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 11:22:50.170 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 11:24:50.180 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 11:26:50.191 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 11:28:50.203 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 11:29:32.708 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 11:29:45.660 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 11:30:50.240 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 11:32:50.219 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 11:34:50.705 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 12:58:50.338 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:00:50.342 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:02:50.347 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:04:50.512 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:06:51.147 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:08:50.349 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:10:50.604 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:12:50.353 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:16:50.356 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:18:50.359 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:20:50.372 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:22:50.363 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:32:50.428 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:34:47.499 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:36:51.440 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:40:50.486 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:42:47.446 NotebookApp] Kernel interrupted: 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8
+[I 13:42:50.744 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:44:50.369 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:46:50.382 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:48:50.357 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:50:50.361 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:52:50.341 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:53:21.749 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:54:16.707 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:54:39.149 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:54:45.068 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:54:50.349 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 13:56:38.144 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:02:39.338 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:03:05.539 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:04:50.333 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:05:11.393 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:06:50.340 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:07:10.790 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:08:01.696 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:08:03.036 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:08:12.741 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:08:45.188 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:08:50.332 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:09:29.597 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:10:50.339 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:11:38.262 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:12:50.330 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:26:50.419 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:28:50.421 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:30:50.439 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:32:50.449 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:34:50.558 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:36:51.059 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:42:50.602 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:44:50.474 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:45:44.488 NotebookApp] Kernel interrupted: 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8
+[I 14:45:57.874 NotebookApp] Starting buffering for 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8:5b57e9872c15495b9fd9b18de92a38e7
+[I 14:46:00.491 NotebookApp] Kernel restarted: 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8
+[I 14:46:00.593 NotebookApp] Restoring connection for 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8:5b57e9872c15495b9fd9b18de92a38e7
+[I 14:46:50.488 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:48:50.486 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:49:14.630 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:50:50.649 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:52:50.469 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:54:50.534 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:56:50.436 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:58:50.412 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 15:00:50.403 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 15:02:50.402 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 15:04:50.437 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 15:06:50.392 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 15:08:50.434 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 15:10:50.385 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 15:14:50.961 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 15:16:50.396 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[W 15:17:54.300 NotebookApp] IOPub data rate exceeded.
+    The notebook server will temporarily stop sending output
+    to the client in order to avoid crashing it.
+    To change this limit, set the config variable
+    `--NotebookApp.iopub_data_rate_limit`.
+    
+    Current values:
+    NotebookApp.iopub_data_rate_limit=1000000.0 (bytes/sec)
+    NotebookApp.rate_limit_window=3.0 (secs)
+    
+[I 15:17:54.788 NotebookApp] Starting buffering for 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8:5b57e9872c15495b9fd9b18de92a38e7
+[I 15:17:56.100 NotebookApp] Kernel restarted: 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8
+[I 15:17:56.212 NotebookApp] Restoring connection for 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8:5b57e9872c15495b9fd9b18de92a38e7
+[I 15:17:56.718 NotebookApp] Replaying 19 buffered messages
+[I 15:18:50.382 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 15:52:51.324 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 17:08:50.648 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 17:10:50.873 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 17:12:50.851 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 17:16:50.611 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 17:16:52.470 NotebookApp] Kernel interrupted: 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8
+[I 17:17:21.172 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 17:19:26.101 NotebookApp] KernelRestarter: restarting kernel (1/5), keep random ports
+WARNING:root:kernel 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8 restarted
+[I 17:20:52.127 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 17:22:50.859 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 17:26:52.526 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 17:29:29.113 NotebookApp] KernelRestarter: restarting kernel (1/5), keep random ports
+WARNING:root:kernel 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8 restarted
+[I 17:30:50.625 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 17:32:50.622 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 17:34:17.019 NotebookApp] Starting buffering for 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8:5b57e9872c15495b9fd9b18de92a38e7
+[I 09:29:47.123 NotebookApp] KernelRestarter: restarting kernel (1/5), keep random ports
+[I 15:23:39.016 NotebookApp] 302 GET / (192.168.100.3) 0.670000ms
+[W 15:23:39.613 NotebookApp] 404 GET /nbextensions/nbextensions_configurator/tree_tab/main.js?v=20210628100018 (192.168.100.3) 2.150000ms referer=http://192.168.100.167:8325/tree?
+[I 15:23:43.511 NotebookApp] Creating new notebook in 
+[I 15:23:44.671 NotebookApp] Kernel started: ceccd679-967a-43c1-939c-38c9a75211f8, name: python3
+[W 15:23:44.714 NotebookApp] 404 GET /nbextensions/nbextensions_configurator/config_menu/main.js?v=20210628100018 (192.168.100.3) 2.880000ms referer=http://192.168.100.167:8325/notebooks/Untitled.ipynb?kernel_name=python3
+[W 15:23:44.737 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20210628100018 (192.168.100.3) 1.800000ms referer=http://192.168.100.167:8325/notebooks/Untitled.ipynb?kernel_name=python3
+[I 15:25:44.687 NotebookApp] Saving file at /Untitled.ipynb
+[I 15:39:08.931 NotebookApp] Starting buffering for ceccd679-967a-43c1-939c-38c9a75211f8:e034add467bd453f94156ef3b4de7286
+[W 15:39:09.175 NotebookApp] 404 GET /nbextensions/nbextensions_configurator/tree_tab/main.js?v=20210628100018 (192.168.100.3) 1.410000ms referer=http://192.168.100.167:8325/tree
+[I 15:39:11.050 NotebookApp] Kernel shutdown: ceccd679-967a-43c1-939c-38c9a75211f8
+[W 15:39:14.624 NotebookApp] delete /Untitled.ipynb
