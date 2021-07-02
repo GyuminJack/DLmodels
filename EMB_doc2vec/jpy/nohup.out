@@ -205,3 +205,22 @@ WARNING:root:kernel 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8 restarted
 [W 15:39:09.175 NotebookApp] 404 GET /nbextensions/nbextensions_configurator/tree_tab/main.js?v=20210628100018 (192.168.100.3) 1.410000ms referer=http://192.168.100.167:8325/tree
 [I 15:39:11.050 NotebookApp] Kernel shutdown: ceccd679-967a-43c1-939c-38c9a75211f8
 [W 15:39:14.624 NotebookApp] delete /Untitled.ipynb
+[I 15:16:27.129 NotebookApp] 302 GET / (192.168.100.3) 0.380000ms
+[W 15:16:28.961 NotebookApp] 404 GET /nbextensions/nbextensions_configurator/tree_tab/main.js?v=20210628100018 (192.168.100.3) 1.000000ms referer=http://192.168.100.167:8325/tree?
+[W 15:16:32.084 NotebookApp] 404 GET /nbextensions/nbextensions_configurator/config_menu/main.js?v=20210628100018 (192.168.100.3) 1.380000ms referer=http://192.168.100.167:8325/notebooks/d2v_testing_0628.ipynb
+[W 15:16:32.763 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20210628100018 (192.168.100.3) 1.090000ms referer=http://192.168.100.167:8325/notebooks/d2v_testing_0628.ipynb
+[I 15:30:10.586 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 15:30:32.888 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 15:31:55.962 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 15:32:32.843 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 15:34:32.849 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 16:50:26.130 NotebookApp] Starting buffering for 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8:fd23761d450a40dbb2a9857c826ccf2c
+[I 14:52:48.615 NotebookApp] 302 GET / (192.168.100.3) 0.810000ms
+[W 14:52:49.454 NotebookApp] 404 GET /nbextensions/nbextensions_configurator/tree_tab/main.js?v=20210628100018 (192.168.100.3) 1.660000ms referer=http://192.168.100.167:8325/tree?
+[W 14:52:51.745 NotebookApp] 404 GET /nbextensions/nbextensions_configurator/config_menu/main.js?v=20210628100018 (192.168.100.3) 15.510000ms referer=http://192.168.100.167:8325/notebooks/d2v_testing_0628.ipynb
+[W 14:52:52.524 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20210628100018 (192.168.100.3) 1.470000ms referer=http://192.168.100.167:8325/notebooks/d2v_testing_0628.ipynb
+[I 14:54:52.388 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:56:52.393 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 14:58:52.495 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 15:00:52.405 NotebookApp] Saving file at /d2v_testing_0628.ipynb
+[I 15:05:36.661 NotebookApp] Starting buffering for 891c6d8d-ce3b-4758-a413-fdd5b18bf7b8:b31325a51ef941668bfc9c4e676e328d
