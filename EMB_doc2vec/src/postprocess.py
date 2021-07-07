@@ -4,6 +4,25 @@ import numpy as np
 import time
 from utils import *
 
+
+def calculate_cosine(hscd_vectors, coid_vectors, n_split):
+    def __split_indices(a, n):
+        # Generator
+        k, m = divmod(len(a), n)
+        return (a[i * k + min(i, m) : (i + 1) * k + min(i + 1, m)] for i in range(n))
+
+    if n_split > len(coid_vectors):
+        n_split = 1
+
+    split_indices = __split_indices(range(len(coid_vectors)), n_split)
+
+    total_cos_mat = []
+    for _id, _splitted_coid_index in enumerate(split_indices):
+        cos_mat = cosine_similarity(hscd_vectors, coid_vectors[_splitted_coid_index])
+        total_cos_mat.append(cos_mat)
+    
+    return total_cos_mat
+
 class postprocess:
     def __init__(self, model, config):
         model_config = config["model"]
@@ -35,15 +54,27 @@ class postprocess:
         np.save(os.path.join(self.vector_save_path, 'coid.npy'), self.coid_vectors)
 
     def save_bulk_cosmat(self, cos_mat:list, hscd_tags, coid_tags):
-        def save(hscode_tag, rank_vector):
+        def save(tag, rank_vector):
             # 수정 필요 ***
             # 일단 파일로 떨구고 그 다음에 다른 모듈에서 불러다가 서비스를 위해 상위 몇만개 추출하는 시나리오로 예상
-            print(hscode_tag, rank_vector)
+            print(tag, rank_vector)
 
+        # HSCODE 기준 유사도 순위 생성 (max_rank = len(coid))
         for _id, _tag in enumerate(hscd_tags):
             hscode_cos_mat = np.concatenate([_tmp[_id] for _tmp in cos_mat], axis=-1)
-            hscode_coid_sorted_index = np.argsort(-hscode_cos_mat, axis=-1)
+            hscode_coid_sorted_index = np.argsort(-hscode_cos_mat, axis=-1) # HSCODE(1) - COID (max_rank = 6000000)
             save(_tag, hscode_coid_sorted_index)
+        
+        # COID 기준 유사도 순위 생성 (max_rank = len(hscode))
+        start = 0
+        for _id, sub_cos_mat in enumerate(cos_mat):
+            end = start + sub_cos_mat.shape[-1]
+            _tag = coid_tags[start : end]
+            print(sub_cos_mat.T)
+            coid_hscode_sorted_index = np.argsort(-sub_cos_mat.T, axis=-1) # sub_coid_range * 6000
+            for _t, _r in zip(_tag, coid_hscode_sorted_index):
+                save(_t, _r)
+            start = end
 
     def run(self):
         self.cos_mats = self.make_cosmat(self.hscd_vectors, self.coid_vectors)
@@ -55,6 +86,8 @@ class post_doc2vec(postprocess):
         self.__check_d2v_index_and_values_order()
         self.hscd_tags, self.hscd_vectors, self.coid_tags, self.coid_vectors = self._split_vectors(self.hscode_path, self.coid_path)
         self.save_files()
+        self.run()
+        
 
     def __check_d2v_index_and_values_order(self):
         doctags = self.model.docvecs.index2entity

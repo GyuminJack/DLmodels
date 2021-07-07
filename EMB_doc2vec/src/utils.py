@@ -29,25 +29,6 @@ def read_key_value_words(hscd_path, coid_path):
     return __file_reader(hscd_path), __file_reader(coid_path)
 
 
-def calculate_cosine(hscd_vectors, coid_vectors, n_split):
-    def __split_indices(a, n):
-        # Generator
-        k, m = divmod(len(a), n)
-        return (a[i * k + min(i, m) : (i + 1) * k + min(i + 1, m)] for i in range(n))
-
-    if n_split > len(coid_vectors):
-        n_split = 1
-
-    split_indices = __split_indices(range(len(coid_vectors)), n_split)
-
-    total_cos_mat = []
-    for _id, _splitted_coid_index in enumerate(split_indices):
-        cos_mat = cosine_similarity(hscd_vectors, coid_vectors[_splitted_coid_index])
-        total_cos_mat.append(cos_mat)
-    
-    return total_cos_mat
-
-
 def get_most_similar_coids(hscode_vector, coid_vectors, top_n = 20):
     hscode_vector = hscode_vector.reshape(-1, hscode_vector.shape[-1])
     cos_mat = cosine_similarity(hscode_vector, coid_vectors)
@@ -63,30 +44,38 @@ class tag_vector_storage:
         assert len(self.hscd_tag) == len(self.hscd_vector), f"Size Mismatched, HSCD (tag = {len(self.hscd_tag)}, vec = {len(self.hscd_vector)})"
         assert len(self.coid_tag) == len(self.coid_vector), f"Size Mismatched, COID (tag = {len(self.coid_tag)}, vec = {len(self.coid_vector)})"
 
-    def recommand_coids(self, hscodes, target_coids = None, top_n = 20):
-        hscode_vector = self.hscd_vector[[self.hscd_tag.index(hscode) for hscode in hscodes]]
-        hscode_vector = hscode_vector.reshape(-1, hscode_vector.shape[-1])
-        
-        if target_coids is not None:
-            target_coid_index = [self.coid_tag.index(coid) for coid in target_coids]
-            target_coid_tag = [self.coid_tag[i] for i in target_coid_index]
-            target_coid_vector = self.coid_vector[target_coid_index]
-        else:
-            target_coid_tag = self.coid_tag
-            target_coid_vector =  self.coid_vector
+    def recommand_coids(self, source_ids, target_ids = None, source = 'hscd', top_n = 20):
+        if source == 'hscd':
+            source_tag = self.hscd_tag
+            source_vector = self.hscd_vector
+            target_tag = self.coid_tag
+            target_vector = self.coid_vector
 
-        top_n = min(len(target_coid_vector), top_n)
+        elif source == 'coid':
+            source_tag = self.coid_tag
+            source_vector = self.coid_vector
+            target_tag = self.hscd_tag
+            target_vector = self.hscd_vector
+
+        source_vector = source_vector[[source_tag.index(source_id) for source_id in source_ids]]
+        source_vector = source_vector.reshape(-1, source_vector.shape[-1])
         
-        cos_mat = cosine_similarity(hscode_vector, target_coid_vector)
+        if target_ids is not None:
+            target_index = [target_tag.index(_id) for _id in target_ids]
+            target_tag = [target_tag[i] for i in target_index]
+            target_vector = target_vector[target_index]
+
+        top_n = min(len(target_tag), top_n)
+        
+        cos_mat = cosine_similarity(source_vector, target_vector)
         indices = np.argpartition(-cos_mat, range(top_n), axis=-1)[:,:top_n]
 
         ret = []
         for _ln, each_index in enumerate(indices):
-            each = [(target_coid_tag[_index], cos_mat[_ln, _index]) for _index in each_index]
+            each = [(target_tag[_index], cos_mat[_ln, _index]) for _index in each_index]
             ret.append(each)
         return ret
     
-
 
 if __name__ == '__main__':
     hscd_tag_path = "/home/jack/dlmodels/EMB_doc2vec/src/tmp_save/d2v_vec/hscd.tags"
@@ -95,4 +84,4 @@ if __name__ == '__main__':
     coid_vec_path = "/home/jack/dlmodels/EMB_doc2vec/src/tmp_save/d2v_vec/coid.npy"
 
     tv_st = tag_vector_storage(hscd_tag_path, hscd_vec_path, coid_tag_path, coid_vec_path)
-    print(tv_st.recommand_coids(['00100'], top_n = 3))
+    print(tv_st.recommand_coids(['00100'], source = 'hscd', top_n = 20))
