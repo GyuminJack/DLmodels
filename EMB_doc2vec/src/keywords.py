@@ -2,6 +2,7 @@ import math
 import random
 from sklearn.feature_extraction.text import TfidfVectorizer
 from collections import defaultdict
+from utils import *
 import re
 
 
@@ -21,23 +22,6 @@ def sampling_corpus(corpus_path, ratio):
         lines = random.sample(f.readlines(), math.ceil(file_len * float(ratio)))
     lines = [cleaning_string(line) for line in lines]
     return lines
-
-
-def writer(result, file_path):
-    try:
-        with open(file_path, "w") as f:
-            for i in result:
-                f.write(i + "\n")
-    except Exception as e:
-        print(f"Can't save : {e}")
-
-
-def reader(path):
-    ret = []
-    with open(path, "r") as f:
-        for line in f.readlines():
-            ret.append(line.strip())
-    return ret
 
 
 class KeywordExtractor:
@@ -88,7 +72,7 @@ class KeywordExtractor:
 
     def get_keywords(self, sep="|"):
         ret_keywords = []
-        stop_words = self.default_stops + self.tfidf_stop_words
+        stop_words = list(set(self.default_stops) + self.tfidf_stop_words))
         with open(self.corpus_path, "r") as f:
             for line in f.readlines():
                 line = cleaning_string(line)
@@ -100,10 +84,6 @@ class KeywordExtractor:
                         keywords.append(word)
                 ret_keywords.append(sep.join(keywords))
         return ret_keywords
-
-    def push_to_db(self, dbconn):
-        pass
-
 
 if __name__ == "__main__":
     import configparser
