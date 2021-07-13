@@ -4,7 +4,6 @@ import numpy as np
 import time
 from utils import *
 
-
 def calculate_cosine(hscd_vectors, coid_vectors, n_split):
     def __split_indices(a, n):
         # Generator
@@ -87,7 +86,6 @@ class post_doc2vec(postprocess):
         self.hscd_tags, self.hscd_vectors, self.coid_tags, self.coid_vectors = self._split_vectors(self.hscode_path, self.coid_path)
         self.save_files()
         self.run()
-        
 
     def __check_d2v_index_and_values_order(self):
         doctags = self.model.docvecs.index2entity
@@ -97,10 +95,14 @@ class post_doc2vec(postprocess):
             assert np.array_equal(self.model.docvecs[_id], vectors[_index]), "Check Failed..!"
     
     def _split_vectors(self, hscode_path, coid_path):
+        # 바뀔수도..?
+        def __make_tag_with_string(string):
+            tag, _ = string.split("|")
+            return tag
+
         def _get_doctag_and_vector(model, gen_string):
             _doctags = model.docvecs.index2entity
-            __make_tag = lambda x : x.split("|")[0]
-            tags = [__make_tag(i) for i in gen_string]
+            tags = [__make_tag_with_string(i) for i in gen_string]
             _doctag_index = [_doctags.index(tag) for tag in tags]
             _vectors = model.docvecs.vectors_docs[_doctag_index].reshape(-1, model.docvecs.vector_size)
             return tags, _vectors
@@ -117,6 +119,7 @@ class post_word2vec(postprocess):
         super().__init__(model, config)
         self.hscd_tags, self.hscd_vectors, self.coid_tags, self.coid_vectors = self._split_vectors(self.hscode_path, self.coid_path)
         self.save_files()
+        self.run()
 
     def get_centroid(self, words_list):
         np_words = []
@@ -132,14 +135,18 @@ class post_word2vec(postprocess):
             return np.mean(np.stack(np_words), axis=0)
 
     def _split_vectors(self, hscode_path, coid_path):
+        def __make_key_and_words(string):
+            key, words = __make_key_and_words
+            words = words.split(",")
+            return key, words
+
         def _get_key_words_centroids(gen_string):
             tags = []
             vectors = []
             for _string in gen_string:
-                key, words = _string.strip().split("|")
-                words = words.split(",")
-                centroid_vector = self.get_centroid(words)
-                tags.append(key)
+                _tag, _words = __make_key_and_words(_string)
+                centroid_vector = self.get_centroid(_words)
+                tags.append(_tag)
                 vectors.append(centroid_vector)
             return tags, np.stack(vectors)
 

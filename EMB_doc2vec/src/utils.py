@@ -1,5 +1,21 @@
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
+import time
+from functools import wraps
+from datetime import datetime
+
+def time_printer(print_opt=True):
+    def timer(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            start = datetime.now()
+            result = func(*args, **kwargs)
+            end = datetime.now()
+            if print_opt:
+                print(f'Success. {end-start} taken for {func.__name__}')
+            return result
+        return wrapper
+    return timer
 
 def writer(result, file_path):
     try:
@@ -27,12 +43,6 @@ def read_key_value_words(hscd_path, coid_path):
                 yield line.strip("\n")
 
     return __file_reader(hscd_path), __file_reader(coid_path)
-
-
-def get_most_similar_coids(hscode_vector, coid_vectors, top_n = 20):
-    hscode_vector = hscode_vector.reshape(-1, hscode_vector.shape[-1])
-    cos_mat = cosine_similarity(hscode_vector, coid_vectors)
-    return np.argpartition(-cos_mat, top_n)
     
 
 class tag_vector_storage:

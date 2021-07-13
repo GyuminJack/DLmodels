@@ -1,10 +1,10 @@
+import configparser
 import math
 import random
 from sklearn.feature_extraction.text import TfidfVectorizer
-from collections import defaultdict
+from collections import defaultdict, Counter
 from utils import *
 import re
-
 
 def cleaning_string(string):
     string = string.strip()
@@ -25,19 +25,20 @@ def sampling_corpus(corpus_path, ratio):
 
 
 class KeywordExtractor:
+    DEBUG_PRINT = True
     def __init__(self, config):
         corpus_config = config["corpus"]
         tfidf_config = config["tfidf"]
         default_config = config["default"]
         save_config = config["save"]
-
+    
         # set Corpus
         self.hscd_corpus_path = corpus_config["hscd_corpus_path"]
         self.coid_corpus_path = corpus_config["coid_corpus_path"]
         
         self.total_corpus_path = [self.hscd_corpus_path, self.coid_corpus_path]
         
-        self.tf_idf_corpus = sampling_corpus(self.coid_corpus_path, ratio=tfidf_config["tfidf_sampling_ratio"])
+        self.sampled_corpus = sampling_corpus(self.coid_corpus_path, ratio=default_config["corpus_sampling_ratio"])
 
         # set Tokenizer
         self.tokenizer = lambda x : re.split("[ \.,\\t]", x)
@@ -50,12 +51,16 @@ class KeywordExtractor:
 
         # set tf-idf stopwords
         self.tfidf_stop_words = self._set_tfidf_stopwords(
-            self.tf_idf_corpus, default_config["min_count"], threshold=tfidf_config["tfidf_threshold"], save_path=tfidf_config["save_path"]
+            self.sampled_corpus, threshold=tfidf_config["tfidf_threshold"], save_path=tfidf_config["save_path"]
         )
 
         self.total_stop_words = list(set(self.default_stops) | set(self.tfidf_stop_words))
 
-    def _set_tfidf_stopwords(self, sampled_corpus, min_count, threshold, save_path=None):
+        self.min_count_stop_words = self._set_min_count_stopwords(self.sampled_corpus, default_config["min_count"])
+        self.total_stop_words = list(set(self.total_stop_words) | set(self.min_count_stop_words))
+
+    @time_printer(DEBUG_PRINT)
+    def _set_tfidf_stopwords(self, sampled_corpus, threshold, save_path=None):
         tfidf_stops = []
         vectorizer = TfidfVectorizer(stop_words=self.default_stops)
 
@@ -76,6 +81,28 @@ class KeywordExtractor:
 
         return tfidf_stops
 
+    @time_printer(DEBUG_PRINT)
+    def _set_min_count_stopwords(self, sampled_corpus, min_count, save_path = None):
+        min_count_stop_words = []
+        cnt_dict = defaultdict(lambda : 0)
+        for line in sampled_corpus:
+            line = cleaning_string(line)
+            tokenized_input = self.tokenizer(line)
+            keywords = []
+            for word in tokenized_input:
+                # if word.pos == 'N' & word not in stop_words:
+                if word not in self.total_stop_words:
+                    cnt_dict[word] += 1
+
+        for k, v in cnt_dict.items():
+            if v < int(min_count):
+                min_count_stop_words.append(k)
+
+        if save_path is not None:
+            writer(tfidf_stops, save_path)
+
+        return min_count_stop_words
+
     def get_keywords(self, line):
         line = cleaning_string(line)
         tokenized_input = self.tokenizer(line)
@@ -86,25 +113,45 @@ class KeywordExtractor:
                 keywords.append(word)
         return keywords
 
+    @time_printer(DEBUG_PRINT)
     def save_keywords(self, corpus_path, save_path, sep=","):
         ret_keywords = []
+        ret_meta = dict()
+        
+        _eachline_keyword_count = 0
+        _lines = 0
+        _word_count_dict = defaultdict(lambda : 0)
+
         sf = open(save_path, "w")
         with open(corpus_path, "r") as f:
             for line in f.readlines():
                 key = "" # key 추가 필요함
                 keywords = self.get_keywords(line)
+                for _w in keywords:
+                    _word_count_dict[_w] += 1
+                
+                _eachline_keyword_count += len(keywords)
+                _lines += 1
+
                 _tmp_string = key + "|" + sep.join(keywords) + "\n"
                 sf.write(_tmp_string)
         sf.close()
-        
+
+        ret_meta['average_keywords_cnt'] = _eachline_keyword_count/_lines
+        ret_meta['total_keywords_cnt'] = _eachline_keyword_count
+        ret_meta['counter_dict'] = Counter(_word_count_dict)
+        return ret_meta
 
     def run(self):
-        for corpus_path in self.total_corpus_path:
-            self.save_keywords(corpus_path, corpus_path + ".extraction")
+        for corpus_path in self.total_corpus_path: 
+            meta_infos = self.save_keywords(corpus_path, corpus_path + ".extraction")
+            # print(meta_infos)
+            break
 
 if __name__ == "__main__":
-    import configparser
-
+    ## Input  : config file
+    ## Output : config file path + '.extraction' (save in same path)
+    
     config = configparser.ConfigParser()
     config.read("./conf/keyword_config.conf")
     ck = KeywordExtractor(config)
