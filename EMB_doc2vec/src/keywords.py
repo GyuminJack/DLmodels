@@ -12,7 +12,10 @@ def cleaning_string(string):
     string = string.replace("‘", "")
     string = string.replace("“", "")
     string = string.replace("’", "")
+    string = string.replace("/", "")
     string = re.sub(r"\d+", "", string)
+    hangul = re.compile('[^ \- a-zㅣA-Z]+')
+    string = hangul.sub('', string)
     return string
 
 
@@ -116,6 +119,7 @@ class KeywordExtractor:
     @time_printer(DEBUG_PRINT)
     def save_keywords(self, corpus_path, save_path, sep=","):
         ret_keywords = []
+        empty_index = []
         ret_meta = dict()
         
         _eachline_keyword_count = 0
@@ -125,14 +129,16 @@ class KeywordExtractor:
         sf = open(save_path, "w")
         with open(corpus_path, "r") as f:
             for line in f.readlines():
-                key = "" # key 추가 필요함
+                key = str(_lines) # key 추가 필요함
                 keywords = self.get_keywords(line)
                 for _w in keywords:
                     _word_count_dict[_w] += 1
                 
                 _eachline_keyword_count += len(keywords)
                 _lines += 1
-
+                if len(keywords) == 0:
+                    empty_index.append(_lines)
+                
                 _tmp_string = key + "|" + sep.join(keywords) + "\n"
                 sf.write(_tmp_string)
         sf.close()
@@ -140,12 +146,14 @@ class KeywordExtractor:
         ret_meta['average_keywords_cnt'] = _eachline_keyword_count/_lines
         ret_meta['total_keywords_cnt'] = _eachline_keyword_count
         ret_meta['counter_dict'] = Counter(_word_count_dict)
+        ret_meta['empty_lines'] = empty_index
+
         return ret_meta
 
     def run(self):
         for corpus_path in self.total_corpus_path: 
             meta_infos = self.save_keywords(corpus_path, corpus_path + ".extraction")
-            # print(meta_infos)
+            writer(meta_infos, corpus_path + ".meta.pkl", pkl = True)
             break
 
 if __name__ == "__main__":
@@ -156,3 +164,5 @@ if __name__ == "__main__":
     config.read("./conf/keyword_config.conf")
     ck = KeywordExtractor(config)
     ck.run()
+
+    

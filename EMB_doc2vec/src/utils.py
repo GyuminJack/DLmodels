@@ -3,6 +3,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import time
 from functools import wraps
 from datetime import datetime
+import pickle
 
 def time_printer(print_opt=True):
     def timer(func):
@@ -17,20 +18,31 @@ def time_printer(print_opt=True):
         return wrapper
     return timer
 
-def writer(result, file_path):
-    try:
-        with open(file_path, "w") as f:
-            for i in result:
-                f.write(i + "\n")
-    except Exception as e:
-        print(f"Can't save : {e}")
+def writer(result, file_path, pkl = False):
+    if pkl:
+        try:
+            with open(file_path, 'wb') as f:
+                pickle.dump(result, f)
+        except Exception as e:
+            print(f"Can't save : {e}")
+    else:
+        try:
+            with open(file_path, "w") as f:
+                for i in result:
+                    f.write(i + "\n")
+        except Exception as e:
+            print(f"Can't save : {e}")
 
 
-def reader(path):
-    ret = []
-    with open(path, "r") as f:
-        for line in f.readlines():
-            ret.append(line.strip())
+def reader(file_path, pkl = False):
+    if pkl:
+        with open(file_path, 'rb') as f:
+            ret = pickle.load(f)
+    else:
+        ret = []
+        with open(file_path, "r") as f:
+            for line in f.readlines():
+                ret.append(line.strip())
     return ret
 
 def read_key_value_words(hscd_path, coid_path):
