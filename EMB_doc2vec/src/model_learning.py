@@ -1,4 +1,4 @@
-from gensim.models import Word2Vec
+from gensim.models import Word2Vec, KeyedVectors
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 
 class d2v_Inputs(object):
@@ -82,5 +82,40 @@ def init_vectors(pretrained_model, real_model):
 
 if __name__ == "__main__":
     corpus_path = "/home/jack/dlmodels/EMB_doc2vec/data/WikiQA-train.txt.extraction"
-    # run_d2v(corpus_path)
-    run_w2v(corpus_path)
+    train = False
+    if train:
+        pass
+        # run_d2v(corpus_path)
+        # run_w2v(corpus_path)
+    
+    else:
+    
+        model_type = 'w2v'
+        
+        max_epochs = 100
+        vec_size = 300
+        alpha = 0.025
+
+        if model_type == 'd2v':
+            model_path = "/home/jack/dlmodels/EMB_doc2vec/models/d2v.0715.model"
+            pretrained_model = Doc2Vec.load(model_path)
+            
+            model = Doc2Vec(vector_size=vec_size,
+                    alpha=alpha, 
+                    min_alpha=0.00025,
+                    min_count=1,
+                    dm =1)
+
+            data = d2v_Inputs(corpus_path)
+            base_model.build_vocab(data)
+
+        elif model_type == 'w2v':
+            model_path = "/home/jack/dlmodels/EMB_doc2vec/models/w2v.0715.model"
+            pretrained_model = Word2Vec.load(model_path)
+            base_model = Word2Vec(size=vec_size,
+                            alpha=alpha, 
+                            min_alpha=0.00025,
+                            min_count=1
+                            )
+            data = d2v_Inputs(corpus_path)
+            base_model.build_vocab(data)

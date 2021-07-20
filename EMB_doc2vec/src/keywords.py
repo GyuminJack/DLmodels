@@ -5,6 +5,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from collections import defaultdict, Counter
 from utils import *
 import re
+import os
+import datetime
 
 def cleaning_string(string):
     string = string.strip()
@@ -33,15 +35,16 @@ class KeywordExtractor:
         corpus_config = config["corpus"]
         tfidf_config = config["tfidf"]
         default_config = config["default"]
-        save_config = config["save"]
-    
+        self.save_config = config["save"]
+        
         # set Corpus
         self.hscd_corpus_path = corpus_config["hscd_corpus_path"]
         self.coid_corpus_path = corpus_config["coid_corpus_path"]
         
         self.total_corpus_path = [self.hscd_corpus_path, self.coid_corpus_path]
         
-        self.sampled_corpus = sampling_corpus(self.coid_corpus_path, ratio=default_config["corpus_sampling_ratio"])
+        self.sampling_ratio = float(default_config["corpus_sampling_ratio"])
+        self.sampled_corpus = sampling_corpus(self.coid_corpus_path, ratio=self.sampling_ratio)
 
         # set Tokenizer
         self.tokenizer = lambda x : re.split("[ \.,\\t]", x)
@@ -53,8 +56,9 @@ class KeywordExtractor:
             self.default_stops = reader(default_config["defalut_stop_path"])
 
         # set tf-idf stopwords
+        self.tfidf_threshold = tfidf_config["tfidf_threshold"]
         self.tfidf_stop_words = self._set_tfidf_stopwords(
-            self.sampled_corpus, threshold=tfidf_config["tfidf_threshold"], save_path=tfidf_config["save_path"]
+            self.sampled_corpus, threshold=self.tfidf_threshold, save_path=os.path.join(self.save_config["save_path"], "keywords/tfidf_stop_words.save")
         )
 
         self.total_stop_words = list(set(self.default_stops) | set(self.tfidf_stop_words))
@@ -128,37 +132,61 @@ class KeywordExtractor:
 
         sf = open(save_path, "w")
         with open(corpus_path, "r") as f:
-            for line in f.readlines():
+            for _lines, line in enumerate(f.readlines()):
+                _lines += 1
                 key = str(_lines) # key 추가 필요함
                 keywords = self.get_keywords(line)
                 for _w in keywords:
                     _word_count_dict[_w] += 1
                 
                 _eachline_keyword_count += len(keywords)
-                _lines += 1
                 if len(keywords) == 0:
-                    empty_index.append(_lines)
+                    empty_index.append(key)
                 
                 _tmp_string = key + "|" + sep.join(keywords) + "\n"
                 sf.write(_tmp_string)
         sf.close()
 
-        ret_meta['average_keywords_cnt'] = _eachline_keyword_count/_lines
-        ret_meta['total_keywords_cnt'] = _eachline_keyword_count
+        ret_meta['process_date'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        ret_meta['total_lines'] = _lines
+        ret_meta['extraction'] = f"{_lines-len(empty_index)}"
+        ret_meta['empty_keywords_ratio'] = f"{len(empty_index)/_lines*100:.2f}% ({len(empty_index)}/{_lines})"
+        
+        ret_meta['tfidf_sampling_ratio'] = f"{self.sampling_ratio*100}%"
+        ret_meta['#_of_stopwords'] = len(self.total_stop_words)
+
+        ret_meta['total_keywords_cnt'] = f"{_eachline_keyword_count}"
+        ret_meta['average_keywords_cnt'] = f"{_eachline_keyword_count/_lines:.2f}"
+
+        ret_meta['empty_indices'] = empty_index
         ret_meta['counter_dict'] = Counter(_word_count_dict)
-        ret_meta['empty_lines'] = empty_index
 
         return ret_meta
 
     def run(self):
-        for corpus_path in self.total_corpus_path: 
-            meta_infos = self.save_keywords(corpus_path, corpus_path + ".extraction")
-            writer(meta_infos, corpus_path + ".meta.pkl", pkl = True)
+        save_root_path = self.save_config['save_path']
+        for corpus_path in self.total_corpus_path:
+            save_path = os.path.join(save_root_path, 'keywords')
+            file_name = corpus_path.split(os.sep)[-1]
+            meta_infos = self.save_keywords(corpus_path, os.path.join(save_path, file_name + ".extraction"))
+            writer(meta_infos, os.path.join(save_path, file_name + ".meta.dict"), pkl = True)
+
+            meta_string = []
+            for k,v in meta_infos.items():
+                if k != 'counter_dict':
+                    if type(v) == list:
+                        v = ",".join([str(_v) for _v in v])
+                    meta_string.append(" : ".join([k, str(v)]))
+            
+            writer(meta_string, os.path.join(save_path, file_name + ".meta"))
             break
 
 if __name__ == "__main__":
-    ## Input  : config file
-    ## Output : config file path + '.extraction' (save in same path)
+    # Input  : config file
+    # Output : 결과 파일         config file path + '.extraction' (save in same path)
+    #          메타 정보 딕셔너리  config file path + '.meta.dict'  (save in same path)
+    #          메타 정보 텍스트    config file path + '.meta'       (save in same path)
+
     
     config = configparser.ConfigParser()
     config.read("./conf/keyword_config.conf")
